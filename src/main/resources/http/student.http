@@ -1,5 +1,5 @@
 ### Create Student
-POST localhost:8080/student/create
+POST localhost:8080/student
 Content-Type: application/json
 
 {
@@ -8,13 +8,13 @@ Content-Type: application/json
 }
 
 ### Get student list
-GET localhost:8080/student/all
+GET localhost:8080/student
 
 ### Get student By Id
-GET localhost:8080/student/getById/74524d74-449f-4825-b4b1-91fa5dcfd87e
+GET localhost:8080/student/2c0178e9-8a11-41b2-9ee2-9ef5337f5507
 
 ### Update student by id
-PUT localhost:8080/student/update/74524d74-449f-4825-b4b1-91fa5dcfd87e
+PUT localhost:8080/student/2c0178e9-8a11-41b2-9ee2-9ef5337f5507
 Content-Type: application/json
 
 {
@@ -22,6 +22,8 @@ Content-Type: application/json
   "surname": "bbbb"
 }
 
-
 ###Delete student by id
-DELETE localhost:8080/student/delete/fba1be82-f627-4257-9842-cd59c8428b3a
+DELETE localhost:8080/student/2c0178e9-8a11-41b2-9ee2-9ef5337f5507
+
+###Search student by name and surname
+GET localhost:8080/student/search?name=hu&surname=v

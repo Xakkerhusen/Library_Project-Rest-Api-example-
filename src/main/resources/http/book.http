@@ -1,5 +1,5 @@
 ### Create Book
-POST localhost:8080/book/create
+POST localhost:8080/book
 Content-Type: application/json
 
 {
@@ -8,21 +8,24 @@ Content-Type: application/json
 }
 
 ### Get book list
-GET localhost:8080/book/all
+GET localhost:8080/book
 
 ### Get book By Id
-GET localhost:8080/book/4
+GET localhost:8080/book/6
 
 
 
 ### Update book by id
-PUT localhost:8080/book/update/4
+PUT localhost:8080/book/6
 Content-Type: application/json
 
 {
   "name": "ssssssssss",
-  "surname": "dddddddddddddd"
+  "title": "dddddddddddddd"
 }
 
 ###Delete book by id
-DELETE localhost:8080/book/delete/6
+DELETE localhost:8080/book/6
+
+###Search book by name and title
+GET localhost:8080/book/search?name=e&title=f

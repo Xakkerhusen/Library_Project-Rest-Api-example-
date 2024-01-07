@@ -1,81 +1,70 @@
 package com.example.Library_Spring_Boot;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
+
 
 @RestController
 @RequestMapping("/book")
 public class BookController {
     private List<Book> bookList = new LinkedList<>();
 
-    public BookController() {
-        Book book1 = new Book();
-        book1.setId(1);
-        book1.setName("aaaa");
-        book1.setTitle("bbbb");
-        book1.setPublishYear(String.valueOf(LocalDate.now().minusYears(3)));
-        bookList.add(book1);
-        Book book2 = new Book();
-        book2.setId(2);
-        book2.setName("ccc");
-        book2.setTitle("ddd");
-        book2.setPublishYear(String.valueOf(LocalDate.now().minusYears(6)));
-        bookList.add(book2);
-        Book book3 = new Book();
-        book3.setId(3);
-        book3.setName("eee");
-        book3.setTitle("fff");
-        book3.setPublishYear(String.valueOf(LocalDate.now().minusYears(1)));
-        bookList.add(book3);
-        Book book4 = new Book();
-        book4.setId(4);
-        book4.setName("ggg");
-        book4.setTitle("hhh");
-        book4.setPublishYear(String.valueOf(LocalDate.now()));
-        bookList.add(book4);
-    }
+    @Autowired
+    private BookService bookService;
 
-    @PostMapping("/create")
-    public boolean createBook(@RequestBody Book book) {
-        book.setId(6);
-        book.setPublishYear(String.valueOf(LocalDate.now()));
-        return bookList.add(book);
-    }
-
-    @GetMapping("/all")
-    public List<Book> getAllBook() {
-        return bookList;
-    }
-
-    @GetMapping("/{id}")
-    public Book getAllBook(@PathVariable("id") Integer id) {
-        return bookList.stream()
-                .filter(book -> book.getId().equals(id))
-                .findAny()
-                .orElse(null);
-        //
-    }
-
-    @DeleteMapping("/delete/{id}")
-    public boolean deleteBookById(@PathVariable("id") Integer id) {
-        return bookList.removeIf(book -> Objects.equals(book.getId(), id));
-    }
-
-    @PutMapping("/update/{id}")
-    public boolean updateBookById(@RequestBody Book book, @PathVariable("id") Integer id) {
-        for (Book book1 : bookList) {
-            if (book1.getId().equals(id)) {
-                book1.setName(book.getName());
-                book1.setTitle(book.getTitle());
-                book1.setPublishYear(book.getPublishYear());
-                return true;
-            }
+    //created book POST
+    @PostMapping("")
+    public ResponseEntity<?> createBook(@RequestBody Book book) {
+        try {
+            bookService.create(book);
+        } catch (AppBadException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
-        return false;
+        return ResponseEntity.ok(true);
+    }
+
+    //    all lisi book GET
+    @GetMapping("")
+    public ResponseEntity<List<Book>> getAllBook() {
+        return ResponseEntity.ok(bookService.all());
+    }
+
+
+    //    get book by id GET
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getBookById(@PathVariable("id") Integer id) {
+        try {
+            Book book = bookService.getBookById(id);
+            return ResponseEntity.ok(book);
+        } catch (AppBadException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    //delete book by id DELETE
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Boolean> deleteBookById(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(bookService.deleteBookById(id));
+    }
+
+    //    update book by id UPDATE
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateBookById(@RequestBody Book book, @PathVariable("id") Integer id) {
+        try {
+            return ResponseEntity.ok(bookService.update(id, book));
+        } catch (AppBadException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Book>>search(@RequestParam("name")String name,
+                                            @RequestParam("title")String title){
+        return ResponseEntity.ok(bookService.search(name,title));
     }
 
 
