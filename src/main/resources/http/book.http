@@ -1,0 +1,28 @@
+### Create Book
+POST localhost:8080/book/create
+Content-Type: application/json
+
+{
+  "name": "alissaxasadcfgb",
+  "title": "bbaaaaaaaaab"
+}
+
+### Get book list
+GET localhost:8080/book/all
+
+### Get book By Id
+GET localhost:8080/book/4
+
+
+
+### Update book by id
+PUT localhost:8080/book/update/4
+Content-Type: application/json
+
+{
+  "name": "ssssssssss",
+  "surname": "dddddddddddddd"
+}
+
+###Delete book by id
+DELETE localhost:8080/book/delete/6
