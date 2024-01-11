@@ -1,4 +1,4 @@
-package com.example.Library_Spring_Boot;
+package com.example.Library_Spring_Boot.exp;
 
 public class AppBadException extends RuntimeException{
 

@@ -3,27 +3,31 @@ POST localhost:8080/student
 Content-Type: application/json
 
 {
-  "name": "aaa",
-  "surname": "bbb"
+  "name": "hasan",
+  "surname": "teshayev",
+  "phone": "+777",
+  "age": 25
 }
 
 ### Get student list
 GET localhost:8080/student
 
 ### Get student By Id
-GET localhost:8080/student/2c0178e9-8a11-41b2-9ee2-9ef5337f5507
-
+GET localhost:8080/student/2
 ### Update student by id
-PUT localhost:8080/student/2c0178e9-8a11-41b2-9ee2-9ef5337f5507
+PUT localhost:8080/student/2
 Content-Type: application/json
 
 {
-  "name": "aaaa",
-  "surname": "bbbb"
+  "name": "ccccccc",
+  "surname": "pppppp",
+  "phone": "+022",
+  "age": 28
 }
 
+
 ###Delete student by id
-DELETE localhost:8080/student/2c0178e9-8a11-41b2-9ee2-9ef5337f5507
+DELETE localhost:8080/student/6
 
 ###Search student by name and surname
-GET localhost:8080/student/search?name=hu&surname=v
+GET localhost:8080/student/search?name=hasan&surname=v

@@ -3,29 +3,31 @@ POST localhost:8080/book
 Content-Type: application/json
 
 {
-  "name": "alissaxasadcfgb",
-  "title": "bbaaaaaaaaab"
+  "name": "aaaaaaaaaaaaa",
+  "title": "bbbbbbb",
+  "publishYear": "2002-08-28"
 }
 
 ### Get book list
 GET localhost:8080/book
 
 ### Get book By Id
-GET localhost:8080/book/6
+GET localhost:8080/book/1
 
 
 
 ### Update book by id
-PUT localhost:8080/book/6
+PUT localhost:8080/book/1
 Content-Type: application/json
 
 {
-  "name": "ssssssssss",
-  "title": "dddddddddddddd"
+  "name": "qolgan",
+  "title": "ketgan",
+  "publishYear": "2012-10-28"
 }
 
 ###Delete book by id
-DELETE localhost:8080/book/6
+DELETE localhost:8080/book/3
 
 ###Search book by name and title
 GET localhost:8080/book/search?name=e&title=f

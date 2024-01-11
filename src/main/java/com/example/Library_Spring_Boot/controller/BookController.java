@@ -1,5 +1,9 @@
-package com.example.Library_Spring_Boot;
+package com.example.Library_Spring_Boot.controller;
 
+import com.example.Library_Spring_Boot.dto.Book;
+import com.example.Library_Spring_Boot.entity.BookEntity;
+import com.example.Library_Spring_Boot.exp.AppBadException;
+import com.example.Library_Spring_Boot.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,45 +31,39 @@ public class BookController {
         return ResponseEntity.ok(true);
     }
 
-    //    all lisi book GET
+//        all lisi book GET
     @GetMapping("")
     public ResponseEntity<List<Book>> getAllBook() {
-        return ResponseEntity.ok(bookService.all());
+        return ResponseEntity.ok(bookService.getAll());
     }
 
 
     //    get book by id GET
     @GetMapping("/{id}")
     public ResponseEntity<?> getBookById(@PathVariable("id") Integer id) {
-        try {
-            Book book = bookService.getBookById(id);
+            BookEntity book = bookService.getById(id);
             return ResponseEntity.ok(book);
-        } catch (AppBadException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
     }
 
     //delete book by id DELETE
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteBookById(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(bookService.deleteBookById(id));
+    public ResponseEntity<?> deleteBookById(@PathVariable("id") Integer id) {
+        bookService.delete(id);
+        return ResponseEntity.ok(true);
     }
+
 
     //    update book by id UPDATE
     @PutMapping("/{id}")
     public ResponseEntity<?> updateBookById(@RequestBody Book book, @PathVariable("id") Integer id) {
-        try {
             return ResponseEntity.ok(bookService.update(id, book));
-        } catch (AppBadException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
     }
-
-    @GetMapping("/search")
-    public ResponseEntity<List<Book>>search(@RequestParam("name")String name,
-                                            @RequestParam("title")String title){
-        return ResponseEntity.ok(bookService.search(name,title));
-    }
+//
+//    @GetMapping("/search")
+//    public ResponseEntity<List<Book>>search(@RequestParam("name")String name,
+//                                            @RequestParam("title")String title){
+//        return ResponseEntity.ok(bookService.search(name,title));
+//    }
 
 
 }
